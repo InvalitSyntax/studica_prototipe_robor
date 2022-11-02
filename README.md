@@ -1,0 +1,1 @@
+# studica_manipulator
