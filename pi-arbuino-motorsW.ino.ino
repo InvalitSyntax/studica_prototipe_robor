@@ -11,7 +11,7 @@ void setup() {
 }
 
 int speedOfMotors = 500;
-int speedOfMotorsRotate = speedOfMotors / 2;
+int speedOfMotorsRotate = 200;
 
 void moveForward(){
   digitalWrite(LED_BUILTIN, HIGH);
@@ -36,21 +36,68 @@ void moveBackward(){
 void moveLeft(){
   digitalWrite(LED_BUILTIN, HIGH);
 
-  md.setM1Speed(speedOfMotors);
-  md.setM2Speed(speedOfMotors);
-  md.setM3Speed(speedOfMotors);
-  md.setM4Speed(speedOfMotors);
+  md.setM1Speed(speedOfMotorsRotate);
+  md.setM2Speed(speedOfMotorsRotate);
+  md.setM3Speed(speedOfMotorsRotate);
+  md.setM4Speed(speedOfMotorsRotate);
 }
 
 void moveRight(){
   digitalWrite(LED_BUILTIN, HIGH);
 
-  speedOfMotors = -speedOfMotors;
-  md.setM1Speed(speedOfMotors);
-  md.setM2Speed(speedOfMotors);
-  md.setM3Speed(speedOfMotors);
-  md.setM4Speed(speedOfMotors);
-  speedOfMotors = -speedOfMotors;
+  speedOfMotorsRotate = -speedOfMotorsRotate;
+  md.setM1Speed(speedOfMotorsRotate);
+  md.setM2Speed(speedOfMotorsRotate);
+  md.setM3Speed(speedOfMotorsRotate);
+  md.setM4Speed(speedOfMotorsRotate);
+  speedOfMotorsRotate = -speedOfMotorsRotate;
+}
+void stop(){
+  md.setM1Speed(0);
+  md.setM2Speed(0);
+  md.setM3Speed(0);
+  md.setM4Speed(0);
+}
+void cube(){
+  digitalWrite(LED_BUILTIN, HIGH);
+
+  int speedkvad = 150;
+  int del = 1000;
+  //forward
+  md.setM1Speed(-speedkvad);
+  md.setM2Speed(speedkvad);
+  md.setM3Speed(-speedkvad);
+  md.setM4Speed(speedkvad);
+  delay(del);
+  stop();
+  delay(100);
+
+  //right
+  md.setM1Speed(-speedkvad);
+  md.setM2Speed(-speedkvad);
+  md.setM3Speed(speedkvad);
+  md.setM4Speed(speedkvad);
+  delay(del);
+  stop();
+  delay(100);
+
+  //down
+  md.setM1Speed(speedkvad);
+  md.setM2Speed(-speedkvad);
+  md.setM3Speed(speedkvad);
+  md.setM4Speed(-speedkvad);
+  delay(del);
+  stop();
+  delay(100);
+
+  //left
+  md.setM1Speed(speedkvad);
+  md.setM2Speed(speedkvad);
+  md.setM3Speed(-speedkvad);
+  md.setM4Speed(-speedkvad);
+  delay(del);
+  stop();
+  delay(100);
 }
 
 void loop() {
@@ -77,6 +124,10 @@ void loop() {
     }
     if (data == "RIGHT"){
       moveRight();
+    }
+
+    if (data == "CUBE"){
+      cube();
     }
     
     if (data == "STOP"){
